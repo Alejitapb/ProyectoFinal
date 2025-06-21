@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Meta Tags para SEO -->
+    <meta name="description" content="Cali Pollo Delivery - El mejor pollo frito de Sabanalarga, Atlántico. Ordena online y recibe en casa con el auténtico sabor caribeño." />
+    <meta name="keywords" content="pollo frito, delivery, Sabanalarga, Atlántico, comida caribeña, pedidos online, domicilio" />
+    <meta name="author" content="Cali Pollo Delivery" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Cali Pollo Delivery - Sabor Caribeño a Domicilio" />
+    <meta property="og:description" content="El mejor pollo frito de Sabanalarga con sazón caribeño. Ordena online y disfruta en casa." />
+    <meta property="og:image" content="/images/logo-cali-pollo.png" />
+    <meta property="og:url" content="https://www.calipollodelivery.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cali Pollo Delivery - Sabor Caribeño a Domicilio" />
+    <meta name="twitter:description" content="El mejor pollo frito de Sabanalarga con sazón caribeño. Ordena online y disfruta en casa." />
+    <meta name="twitter:image" content="/images/logo-cali-pollo.png" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-cali-pollo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-cali-pollo.png" />
+    <link rel="apple-touch-icon" href="/images/logo-cali-pollo.png" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#FFD700" />
+    <meta name="msapplication-TileColor" content="#FFD700" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <title>Cali Pollo Delivery - Sabor Caribeño a Domicilio | Sabanalarga, Atlántico</title>
+
+    <!-- Color palette vars -->
+    <style>
+        :root {
+            --primary-yellow: #FFD700;
+            --primary-orange: #FF8C00;
+            --primary-red: #FF4500;
+            --secondary-yellow: #FFF8DC;
+            --secondary-orange: #FFE4B5;
+            --accent-red: #DC143C;
+            --white: #FFFFFF;
+            --black: #000000;
+            --gray-light: #F5F5F5;
+            --gray-medium: #CCCCCC;
+            --gray-dark: #666666;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white); /* Fondo blanco */
+            color: var(--black); /* Texto negro */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #root {
+            min-height: 100vh;
+        }
+
+        .loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-yellow), var(--primary-orange));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .loading-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        .loading-text {
+            color: var(--white);
+            font-size: 24px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .loading-subtitle {
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.9;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .app-loaded .loading-container {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .no-js .loading-container {
+            display: none;
+        }
+
+        .no-js #root::before {
+            content: "JavaScript es requerido para usar esta aplicación. Por favor, habilita JavaScript en tu navegador.";
+            display: block;
+            padding: 20px;
+            background-color: var(--accent-red);
+            color: var(--white);
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<!-- Loading Screen -->
+<div class="loading-container" id="loadingScreen">
+    <img src="/images/logo-cali-pollo.png" alt="Cali Pollo Delivery Logo" class="loading-logo" />
+    <h1 class="loading-text">Cali Pollo Delivery</h1>
+    <p class="loading-subtitle">Preparando el mejor sabor caribeño para ti...</p>
+    <div class="spinner"></div>
+</div>
+
+<!-- Contenedor principal -->
+<div id="root">
+    <noscript>
+        <div style="padding: 20px; background-color: var(--accent-red); color: var(--white); text-align: center; font-weight: 500;">
+            <h2>JavaScript Requerido</h2>
+            <p>Esta aplicación requiere JavaScript para funcionar correctamente. Por favor, habilita JavaScript en tu navegador y recarga la página.</p>
+            <p>Para una mejor experiencia, te recomendamos usar Google Chrome, Firefox, Safari o Edge en sus versiones más recientes.</p>
+        </div>
+    </noscript>
+</div>
+
+<script>
+    document.documentElement.classList.remove('no-js');
+
+    function hideLoadingScreen() {
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            document.body.classList.add('app-loaded');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
+    }
+
+    window.addEventListener('load', () => {
+        setTimeout(hideLoadingScreen, 1000);
+    });
+
+    setTimeout(hideLoadingScreen, 5000);
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then((registration) => console.log('SW registered: ', registration))
+                .catch((err) => console.log('SW registration failed: ', err));
+        });
+    }
+</script>
+
+<!-- Script de Vite -->
+<script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="es">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
+
+<!--    &lt;!&ndash; Meta Tags para SEO &ndash;&gt;-->
+<!--    <meta name="description" content="Cali Pollo Delivery - El mejor pollo frito de Sabanalarga, Atlántico. Ordena online y recibe en casa con el auténtico sabor caribeño." />-->
+<!--    <meta name="keywords" content="pollo frito, delivery, Sabanalarga, Atlántico, comida caribeña, pedidos online, domicilio" />-->
+<!--    <meta name="author" content="Cali Pollo Delivery" />-->
+<!--    <meta name="robots" content="index, follow" />-->
+
+<!--    &lt;!&ndash; Open Graph Meta Tags para redes sociales &ndash;&gt;-->
+<!--    <meta property="og:title" content="Cali Pollo Delivery - Sabor Caribeño a Domicilio" />-->
+<!--    <meta property="og:description" content="El mejor pollo frito de Sabanalarga con sazón caribeño. Ordena online y disfruta en casa." />-->
+<!--    <meta property="og:image" content="/images/logo-cali-pollo.png" />-->
+<!--    <meta property="og:url" content="https://www.calipollodelivery.com" />-->
+<!--    <meta property="og:type" content="website" />-->
+<!--    <meta property="og:locale" content="es_CO" />-->
+
+<!--    &lt;!&ndash; Twitter Card Meta Tags &ndash;&gt;-->
+<!--    <meta name="twitter:card" content="summary_large_image" />-->
+<!--    <meta name="twitter:title" content="Cali Pollo Delivery - Sabor Caribeño a Domicilio" />-->
+<!--    <meta name="twitter:description" content="El mejor pollo frito de Sabanalarga con sazón caribeño. Ordena online y disfruta en casa." />-->
+<!--    <meta name="twitter:image" content="/images/logo-cali-pollo.png" />-->
+
+<!--    &lt;!&ndash; Favicon y App Icons &ndash;&gt;-->
+<!--    <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-cali-pollo.png" />-->
+<!--    <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-cali-pollo.png" />-->
+<!--    <link rel="apple-touch-icon" href="/images/logo-cali-pollo.png" />-->
+
+<!--    &lt;!&ndash; Manifest para PWA &ndash;&gt;-->
+<!--    <link rel="manifest" href="/manifest.json" />-->
+
+<!--    &lt;!&ndash; Theme Color &ndash;&gt;-->
+<!--    <meta name="theme-color" content="#FFD700" />-->
+<!--    <meta name="msapplication-TileColor" content="#FFD700" />-->
+
+<!--    &lt;!&ndash; Preconnect para optimización &ndash;&gt;-->
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com" />-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />-->
+
+<!--    &lt;!&ndash; Google Fonts &ndash;&gt;-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet" />-->
+
+<!--    &lt;!&ndash; Título de la página &ndash;&gt;-->
+<!--    <title>Cali Pollo Delivery - Sabor Caribeño a Domicilio | Sabanalarga, Atlántico</title>-->
+
+<!--    &lt;!&ndash; CSS Variables para la paleta de colores &ndash;&gt;-->
+<!--    <style>-->
+<!--        :root {-->
+<!--            &#45;&#45;primary-yellow: #FFD700;-->
+<!--            &#45;&#45;primary-orange: #FF8C00;-->
+<!--            &#45;&#45;primary-red: #FF4500;-->
+<!--            &#45;&#45;secondary-yellow: #FFF8DC;-->
+<!--            &#45;&#45;secondary-orange: #FFE4B5;-->
+<!--            &#45;&#45;accent-red: #DC143C;-->
+<!--            &#45;&#45;white: #FFFFFF;-->
+<!--            &#45;&#45;black: #000000;-->
+<!--            &#45;&#45;gray-light: #F5F5F5;-->
+<!--            &#45;&#45;gray-medium: #CCCCCC;-->
+<!--            &#45;&#45;gray-dark: #666666;-->
+<!--        }-->
+
+<!--        /* Loading Spinner Styles */-->
+<!--        .loading-container {-->
+<!--            position: fixed;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            background: linear-gradient(135deg, var(&#45;&#45;primary-yellow), var(&#45;&#45;primary-orange));-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            z-index: 9999;-->
+<!--            font-family: 'Poppins', sans-serif;-->
+<!--        }-->
+
+<!--        .loading-logo {-->
+<!--            width: 120px;-->
+<!--            height: 120px;-->
+<!--            margin-bottom: 20px;-->
+<!--            border-radius: 50%;-->
+<!--            object-fit: cover;-->
+<!--            border: 4px solid var(&#45;&#45;white);-->
+<!--            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);-->
+<!--            animation: pulse 2s infinite;-->
+<!--        }-->
+
+<!--        .loading-text {-->
+<!--            color: var(&#45;&#45;white);-->
+<!--            font-size: 24px;-->
+<!--            font-weight: 600;-->
+<!--            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        .loading-subtitle {-->
+<!--            color: var(&#45;&#45;white);-->
+<!--            font-size: 16px;-->
+<!--            font-weight: 400;-->
+<!--            opacity: 0.9;-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        .spinner {-->
+<!--            width: 50px;-->
+<!--            height: 50px;-->
+<!--            border: 4px solid rgba(255, 255, 255, 0.3);-->
+<!--            border-top: 4px solid var(&#45;&#45;white);-->
+<!--            border-radius: 50%;-->
+<!--            animation: spin 1s linear infinite;-->
+<!--        }-->
+
+<!--        @keyframes spin {-->
+<!--            0% { transform: rotate(0deg); }-->
+<!--            100% { transform: rotate(360deg); }-->
+<!--        }-->
+
+<!--        @keyframes pulse {-->
+<!--            0%, 100% { transform: scale(1); }-->
+<!--            50% { transform: scale(1.05); }-->
+<!--        }-->
+
+<!--        /* Ocultar el loading cuando la app carga */-->
+<!--        .app-loaded .loading-container {-->
+<!--            opacity: 0;-->
+<!--            visibility: hidden;-->
+<!--            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;-->
+<!--        }-->
+
+<!--        /* Estilos básicos del body */-->
+<!--        body {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;-->
+<!--            -webkit-font-smoothing: antialiased;-->
+<!--            -moz-osx-font-smoothing: grayscale;-->
+<!--            background-color: var(&#45;&#45;gray-light);-->
+<!--        }-->
+
+<!--        #root {-->
+<!--            min-height: 100vh;-->
+<!--        }-->
+
+<!--        /* Utilidades para accesibilidad */-->
+<!--        .sr-only {-->
+<!--            position: absolute;-->
+<!--            width: 1px;-->
+<!--            height: 1px;-->
+<!--            padding: 0;-->
+<!--            margin: -1px;-->
+<!--            overflow: hidden;-->
+<!--            clip: rect(0, 0, 0, 0);-->
+<!--            white-space: nowrap;-->
+<!--            border: 0;-->
+<!--        }-->
+
+<!--        /* Estilos para modo sin JavaScript */-->
+<!--        .no-js .loading-container {-->
+<!--            display: none;-->
+<!--        }-->
+
+<!--        .no-js #root::before {-->
+<!--            content: "JavaScript es requerido para usar esta aplicación. Por favor, habilita JavaScript en tu navegador.";-->
+<!--            display: block;-->
+<!--            padding: 20px;-->
+<!--            background-color: var(&#45;&#45;accent-red);-->
+<!--            color: var(&#45;&#45;white);-->
+<!--            text-align: center;-->
+<!--            font-weight: 500;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; Loading Screen &ndash;&gt;-->
+<!--<div class="loading-container" id="loadingScreen">-->
+<!--    <img src="/images/logo-cali-pollo.png" alt="Cali Pollo Delivery Logo" class="loading-logo" />-->
+<!--    <h1 class="loading-text">Cali Pollo Delivery</h1>-->
+<!--    <p class="loading-subtitle">Preparando el mejor sabor caribeño para ti...</p>-->
+<!--    <div class="spinner"></div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Contenedor principal de la aplicación React &ndash;&gt;-->
+<!--<div id="root">-->
+<!--    &lt;!&ndash; Contenido de fallback para navegadores sin JavaScript &ndash;&gt;-->
+<!--    <noscript>-->
+<!--        <div style="padding: 20px; background-color: var(&#45;&#45;accent-red); color: var(&#45;&#45;white); text-align: center; font-weight: 500;">-->
+<!--            <h2>JavaScript Requerido</h2>-->
+<!--            <p>Esta aplicación requiere JavaScript para funcionar correctamente. Por favor, habilita JavaScript en tu navegador y recarga la página.</p>-->
+<!--            <p>Para una mejor experiencia, te recomendamos usar Google Chrome, Firefox, Safari o Edge en sus versiones más recientes.</p>-->
+<!--        </div>-->
+<!--    </noscript>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Scripts de inicialización &ndash;&gt;-->
+<!--<script>-->
+<!--    // Detectar si JavaScript está habilitado-->
+<!--    document.documentElement.classList.remove('no-js');-->
+
+<!--    // Función para ocultar el loading screen-->
+<!--    function hideLoadingScreen() {-->
+<!--        const loadingScreen = document.getElementById('loadingScreen');-->
+<!--        if (loadingScreen) {-->
+<!--            document.body.classList.add('app-loaded');-->
+<!--            setTimeout(() => {-->
+<!--                loadingScreen.style.display = 'none';-->
+<!--            }, 500);-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Ocultar loading screen cuando la aplicación esté lista-->
+<!--    window.addEventListener('load', () => {-->
+<!--        // Esperar un poco más para asegurar que React haya renderizado-->
+<!--        setTimeout(hideLoadingScreen, 1000);-->
+<!--    });-->
+
+<!--    // Fallback: ocultar después de 5 segundos como máximo-->
+<!--    setTimeout(hideLoadingScreen, 5000);-->
+
+<!--    // Service Worker para PWA (opcional)-->
+<!--    if ('serviceWorker' in navigator) {-->
+<!--        window.addEventListener('load', () => {-->
+<!--            navigator.serviceWorker.register('/sw.js')-->
+<!--                .then((registration) => {-->
+<!--                    console.log('SW registered: ', registration);-->
+<!--                })-->
+<!--                .catch((registrationError) => {-->
+<!--                    console.log('SW registration failed: ', registrationError);-->
+<!--                });-->
+<!--        });-->
+<!--    }-->
+
+<!--    // Configuración de Google Analytics (opcional)-->
+<!--    // window.dataLayer = window.dataLayer || [];-->
+<!--    // function gtag(){dataLayer.push(arguments);}-->
+<!--    // gtag('js', new Date());-->
+<!--    // gtag('config', 'GA_MEASUREMENT_ID');-->
+<!--</script>-->
+
+<!--&lt;!&ndash; Google Analytics (descomenta si necesitas analytics) &ndash;&gt;-->
+<!--&lt;!&ndash; <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> &ndash;&gt;-->
+
+<!--&lt;!&ndash; El script de Vite se inyectará automáticamente aquí en desarrollo &ndash;&gt;-->
+<!--<script type="module" src="/src/main.jsx"></script>-->
+<!--</body>-->
+<!--</html>-->
